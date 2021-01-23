@@ -16,7 +16,7 @@ export const itemsReducer = createReducer(
         return { ...state, entity: [...state.entity, newItem] };
     }),
     on(deleteItem, (state, item) => { return { ...state, entity: state.entity.filter(i => i.id !== item.id) } }),
-    on(updateItems, (state, { items }) => { return { ...state, loading: true } })
+    on(updateItems, (state) => { return { ...state, loading: true } })
 )
 
 function incrementID(state: ReadonlyArray<ItemDTO>): number {

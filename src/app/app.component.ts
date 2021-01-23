@@ -15,14 +15,12 @@ import { selectItems, selectLoading } from './state/items.selectors';
 })
 export class AppComponent {
   title = 'gilded-rose-fe';
-  $items = this.store.pipe(select(selectItems)).subscribe(v => this.itemsList = v);
   $loading = this.store.pipe(select(selectLoading));
-  itemsList: ReadonlyArray<ItemDTO> = [];
   constructor(private itemsService: ItemsServiceService, private store: Store<AppState>) {
 
   }
 
   updateItems() {
-    this.store.dispatch(updateItems({ items: this.itemsList }));
+    this.store.dispatch(updateItems());
   }
 }
