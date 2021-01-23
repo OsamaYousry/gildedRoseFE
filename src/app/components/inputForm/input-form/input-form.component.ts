@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ItemDTO } from 'src/app/dtos/ItemDTO';
+import { addItem } from 'src/app/state/items.actions';
 
 
 @Component({
@@ -15,8 +17,9 @@ export class InputFormComponent implements OnInit {
     quality: [null, [Validators.required, Validators.max(50), Validators.min(0)]],
     sellIn: [null, [Validators.required]]
   });
+  @ViewChild(FormGroupDirective) formDirective?: FormGroupDirective;
   isLoading: boolean = false;
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private store: Store) { }
 
   ngOnInit(): void {
     this.inputForm.get("name")?.valueChanges.pipe(debounceTime(200), distinctUntilChanged()).subscribe(v => {
@@ -45,7 +48,14 @@ export class InputFormComponent implements OnInit {
     if (this.inputForm.valid) {
       let item: ItemDTO = this.inputForm.getRawValue();
       this.isLoading = true;
+      this.store.dispatch(addItem(item));
+      this.isLoading = false;
+      this.resetForm();
     }
+  }
+
+  resetForm() {
+    this.formDirective?.resetForm();
   }
 
 }

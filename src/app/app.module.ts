@@ -12,6 +12,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgSlimScrollModule, SLIMSCROLL_DEFAULTS } from 'ngx-slimscroll';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { itemsReducer } from './state/items.reducer';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -32,7 +35,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgSlimScrollModule,
     FormsModule,
     ReactiveFormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    HttpClientModule,
+    StoreModule.forRoot({ items: itemsReducer })
   ],
   providers: [{
     provide: SLIMSCROLL_DEFAULTS,

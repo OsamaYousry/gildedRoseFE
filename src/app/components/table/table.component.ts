@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemDTO } from '../../dtos/ItemDTO';
+import { select, Store } from '@ngrx/store';
+import { AppState } from 'src/app/state/app.state';
+import { selectItems } from 'src/app/state/items.selectors';
 
 @Component({
   selector: 'app-table',
@@ -8,15 +10,9 @@ import { ItemDTO } from '../../dtos/ItemDTO';
 })
 export class TableComponent implements OnInit {
 
-  ELEMENT_DATA: ItemDTO[] = [
-    { name: 'Conjured', quality: 10, sellIn: 2 },
-    { name: 'Sulfuras', quality: 10, sellIn: 2 },
-    { name: 'Aged Brie', quality: 10, sellIn: 2 },
-    { name: 'Conjured', quality: 10, sellIn: 2 },
-  ];
   displayedColumns: string[] = ['name', 'quality', 'sellIn'];
-  dataSource = this.ELEMENT_DATA;
-  constructor() { }
+  items = this.store.pipe(select(selectItems));
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
   }
