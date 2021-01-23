@@ -1,7 +1,12 @@
 <form [formGroup]="inputForm" (ngSubmit)="addItem()">
     <mat-form-field class="input-field name-field" appearance="outline">
         <mat-label>Name</mat-label>
-        <input matInput placeholder="Name" formControlName="name">
+        <input matInput placeholder="Name" formControlName="name" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of defaultNames" [value]="option">
+                {{option}}
+            </mat-option>
+        </mat-autocomplete>
         <mat-error *ngIf="inputForm.get('name')?.invalid">Name is required</mat-error>
     </mat-form-field>
 

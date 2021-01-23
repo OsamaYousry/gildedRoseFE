@@ -19,6 +19,8 @@ export class InputFormComponent implements OnInit {
   });
   @ViewChild(FormGroupDirective) formDirective?: FormGroupDirective;
   isLoading: boolean = false;
+  defaultNames: string[] = ["Aged Brie", "Backstage passes to a TAFKAL80ETC concert",
+    "Conjured", "Sulfuras, Hand of Ragnaros"];
   constructor(private fb: FormBuilder, private store: Store) { }
 
   ngOnInit(): void {

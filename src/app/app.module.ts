@@ -16,6 +16,7 @@ import { StoreModule } from '@ngrx/store';
 import { itemsReducer } from './state/items.reducer';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 
@@ -40,6 +41,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatProgressSpinnerModule,
     HttpClientModule,
     MatIconModule,
+    MatAutocompleteModule,
     StoreModule.forRoot({ items: itemsReducer })
   ],
   providers: [{
