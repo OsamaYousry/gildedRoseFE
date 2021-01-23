@@ -15,7 +15,7 @@ export const itemsReducer = createReducer(
         };
         return { ...state, entity: [...state.entity, newItem] };
     }),
-    on(deleteItem, (state, item) => { return { ...state, items: state.entity.filter(i => i.id !== item.id) } }),
+    on(deleteItem, (state, item) => { return { ...state, entity: state.entity.filter(i => i.id !== item.id) } }),
     on(updateItems, (state, { items }) => { return { ...state, loading: true } })
 )
 
