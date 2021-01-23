@@ -17,6 +17,11 @@ import { itemsReducer } from './state/items.reducer';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { EffectsModule } from '@ngrx/effects';
+import { Itemseffects } from './state/items.effects';
+
+
 
 
 
@@ -42,6 +47,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     HttpClientModule,
     MatIconModule,
     MatAutocompleteModule,
+    MatProgressBarModule,
+    EffectsModule.forRoot([Itemseffects]),
     StoreModule.forRoot({ items: itemsReducer })
   ],
   providers: [{

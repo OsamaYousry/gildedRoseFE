@@ -1,20 +1,22 @@
+import { state } from "@angular/animations";
 import { createReducer, on } from "@ngrx/store";
 import { ItemDTO } from "../dtos/ItemDTO";
-import { addItem, deleteItem, retrievedItems } from "./items.actions";
+import { addItem, deleteItem, retrievedItems, updateItems } from "./items.actions";
 
-export const initialState: ReadonlyArray<ItemDTO> = [];
+export const initialState: { entity: ReadonlyArray<ItemDTO>, loading: boolean } = { entity: [], loading: false };
 
 export const itemsReducer = createReducer(
     initialState,
-    on(retrievedItems, (state, { items }) => items),
+    on(retrievedItems, (state, { items }) => { return { loading: false, entity: items }; }),
     on(addItem, (state, item) => {
         let newItem: ItemDTO = {
-            id: incrementID(state), name: item.name,
+            id: incrementID(state.entity), name: item.name,
             quality: item.quality, sellIn: item.sellIn
         };
-        return [...state, newItem];
+        return { ...state, entity: [...state.entity, newItem] };
     }),
-    on(deleteItem, (state, item) => state.filter(i => i.id !== item.id))
+    on(deleteItem, (state, item) => { return { ...state, items: state.entity.filter(i => i.id !== item.id) } }),
+    on(updateItems, (state, { items }) => { return { ...state, loading: true } })
 )
 
 function incrementID(state: ReadonlyArray<ItemDTO>): number {

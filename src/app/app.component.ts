@@ -6,7 +6,7 @@ import { ItemDTO } from './dtos/ItemDTO';
 import { ItemsServiceService } from './services/items-service.service';
 import { AppState } from './state/app.state';
 import { retrievedItems, updateItems } from './state/items.actions';
-import { selectItems } from './state/items.selectors';
+import { selectItems, selectLoading } from './state/items.selectors';
 
 @Component({
   selector: 'app-root',
@@ -16,14 +16,13 @@ import { selectItems } from './state/items.selectors';
 export class AppComponent {
   title = 'gilded-rose-fe';
   $items = this.store.pipe(select(selectItems)).subscribe(v => this.itemsList = v);
+  $loading = this.store.pipe(select(selectLoading));
   itemsList: ReadonlyArray<ItemDTO> = [];
   constructor(private itemsService: ItemsServiceService, private store: Store<AppState>) {
 
   }
 
   updateItems() {
-    this.itemsService.updateItems(this.itemsList).subscribe(items => {
-      this.store.dispatch(retrievedItems({ items: items }))
-    })
+    this.store.dispatch(updateItems({ items: this.itemsList }));
   }
 }
