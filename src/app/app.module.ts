@@ -9,8 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { TableComponent } from './components/table/table.component';
 import { InputFormComponent } from './components/inputForm/input-form/input-form.component';
 import { MatButtonModule } from '@angular/material/button';
-import { NgSlimScrollModule } from 'ngx-slimscroll';
-import { SLIMSCROLL_DEFAULTS } from 'ngx-slimscroll';
+import { NgSlimScrollModule, SLIMSCROLL_DEFAULTS } from 'ngx-slimscroll';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -31,7 +31,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     NgSlimScrollModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
   ],
   providers: [{
     provide: SLIMSCROLL_DEFAULTS,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { ItemDTO } from 'src/app/dtos/ItemDTO';
 
 
 @Component({
@@ -14,17 +15,37 @@ export class InputFormComponent implements OnInit {
     quality: [null, [Validators.required, Validators.max(50), Validators.min(0)]],
     sellIn: [null, [Validators.required]]
   });
+  isLoading: boolean = false;
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.inputForm.get("name")?.valueChanges.pipe(debounceTime(200), distinctUntilChanged()).subscribe(v => {
-      if (v == 'Sulfuras, Hand of Ragnaros') {
+      if (v === 'Sulfuras, Hand of Ragnaros') {
         this.inputForm.get('quality')?.setValue(80);
         this.inputForm.get('quality')?.disable();
       } else {
         this.inputForm.get('quality')?.enable();
+        if (this.inputForm.get('quality')?.value) {
+          this.inputForm.get('quality')?.markAsTouched();
+          this.inputForm.get('quality')?.updateValueAndValidity({ onlySelf: true });
+        }
       }
     })
+  }
+
+  getErrorMessage(): string {
+    let formControl: AbstractControl | null = this.inputForm.get('quality');
+    if (formControl?.hasError('required')) return 'Quality is required';
+    else if (formControl?.hasError('min')) return 'Quality cannot be less than zero';
+    else if (formControl?.hasError('max')) return 'Quality cannot be more than 50';
+    else return '';
+  }
+
+  addItem(): void {
+    if (this.inputForm.valid) {
+      let item: ItemDTO = this.inputForm.getRawValue();
+      this.isLoading = true;
+    }
   }
 
 }
