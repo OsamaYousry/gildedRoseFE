@@ -15,6 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { itemsReducer } from './state/items.reducer';
 import { HttpClientModule } from '@angular/common/http';
+import { MatIconModule } from '@angular/material/icon';
+
 
 
 
@@ -37,6 +39,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     HttpClientModule,
+    MatIconModule,
     StoreModule.forRoot({ items: itemsReducer })
   ],
   providers: [{
