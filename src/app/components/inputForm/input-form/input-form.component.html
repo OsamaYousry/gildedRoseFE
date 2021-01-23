@@ -1,18 +1,18 @@
-<form>
-    <mat-form-field class="input-field" appearance="outline">
+<form [formGroup]="inputForm">
+    <mat-form-field class="input-field name-field" appearance="outline">
         <mat-label>Name</mat-label>
-        <input matInput placeholder="Name">
+        <input matInput placeholder="Name" formControlName="name">
     </mat-form-field>
 
     <mat-form-field class="input-field" appearance="outline">
         <mat-label>Quality</mat-label>
-        <input matInput placeholder="Quality" type="number">
+        <input matInput placeholder="Quality" type="number" formControlName="quality">
     </mat-form-field>
 
     <mat-form-field class="input-field" appearance="outline">
         <mat-label>Sell In</mat-label>
-        <input matInput placeholder="Sell In" type="number">
+        <input matInput placeholder="Sell In" type="number" formControlName="sellIn">
     </mat-form-field>
 
-    <button mat-raised-button color="primary">Add</button>
+    <button mat-raised-button color="primary" type="submit">Add</button>
 </form>

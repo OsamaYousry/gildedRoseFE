@@ -1,4 +1,8 @@
 .input-field {
     padding: 0.5rem;
     width: 20%;
+    font-size: 12px;
+    &.name-field {
+        width: 35%;
+    }
 }

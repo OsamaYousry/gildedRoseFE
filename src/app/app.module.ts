@@ -11,6 +11,7 @@ import { InputFormComponent } from './components/inputForm/input-form/input-form
 import { MatButtonModule } from '@angular/material/button';
 import { NgSlimScrollModule } from 'ngx-slimscroll';
 import { SLIMSCROLL_DEFAULTS } from 'ngx-slimscroll';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -28,7 +29,9 @@ import { SLIMSCROLL_DEFAULTS } from 'ngx-slimscroll';
     MatTableModule,
     MatInputModule,
     MatButtonModule,
-    NgSlimScrollModule
+    NgSlimScrollModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [{
     provide: SLIMSCROLL_DEFAULTS,
