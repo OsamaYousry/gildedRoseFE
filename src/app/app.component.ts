@@ -16,7 +16,7 @@ import { selectItems, selectLoading } from './state/items.selectors';
 export class AppComponent {
   title = 'gilded-rose-fe';
   $loading = this.store.pipe(select(selectLoading));
-  constructor(private itemsService: ItemsServiceService, private store: Store<AppState>) {
+  constructor(private store: Store<AppState>) {
 
   }
 
