@@ -3,17 +3,23 @@ import { AppComponent } from './app.component';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { By } from '@angular/platform-browser';
 import { updateItems } from './state/items.actions';
+import { Component } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 describe('AppComponent', () => {
   let store: MockStore;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        MockAppTable,
+        MockAppForm
       ],
       providers: [
         provideMockStore({ initialState: { items: { loading: false } } }),
       ],
+      imports: [MatCardModule, MatProgressBarModule]
     }).compileComponents();
     store = TestBed.inject(MockStore);
   });
@@ -57,3 +63,17 @@ describe('AppComponent', () => {
     expect(dispatchSpy).toHaveBeenCalledOnceWith(expectedAction);
   })
 });
+
+@Component({
+  selector: 'app-table',
+  template: ''
+})
+class MockAppTable {
+}
+
+@Component({
+  selector: 'app-input-form',
+  template: ''
+})
+class MockAppForm {
+}
