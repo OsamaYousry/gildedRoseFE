@@ -12,6 +12,6 @@ export class ItemsServiceService {
   constructor(private http: HttpClient) { }
 
   updateItems(items: ReadonlyArray<ItemDTO>): Observable<ItemDTO[]> {
-    return this.http.put<ItemDTO[]>('http://localhost:4200/api', items);
+    return this.http.put<ItemDTO[]>('/api', items);
   }
 }
