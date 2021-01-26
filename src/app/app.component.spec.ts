@@ -3,8 +3,6 @@ import { AppComponent } from './app.component';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { By } from '@angular/platform-browser';
 import { updateItems } from './state/items.actions';
-import { selectLoading } from './state/items.selectors';
-
 
 describe('AppComponent', () => {
   let store: MockStore;
