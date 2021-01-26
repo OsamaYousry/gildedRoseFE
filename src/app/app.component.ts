@@ -14,7 +14,6 @@ import { selectItems, selectLoading } from './state/items.selectors';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'gilded-rose-fe';
   $loading = this.store.pipe(select(selectLoading));
   constructor(private store: Store<AppState>) {
 
