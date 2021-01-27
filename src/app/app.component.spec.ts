@@ -45,11 +45,15 @@ describe('AppComponent', () => {
     expect(loadingBar).toBeDefined();
   });
 
-  it('should remove loading bar in case of no loading state', () => {
+  it('should remove loading bar in case of no loading state', async () => {
     const fixture = TestBed.createComponent(AppComponent);
+    store.setState({ items: { loading: true } });
+    store.refreshState();
+    fixture.detectChanges();
     store.setState({ items: { loading: false } });
     store.refreshState();
     fixture.detectChanges();
+    await fixture.whenStable();
     const loadingBar = fixture.debugElement.query(By.css("mat-progress-bar"));
     expect(loadingBar).toBeNull();
   });
