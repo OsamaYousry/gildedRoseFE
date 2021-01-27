@@ -50,6 +50,34 @@ describe('InputFormComponent', () => {
     validateButtonPress(fixture, false, store, { name: '', quality: 0, sellIn: 0, id: 0 })
   });
 
+  it('should disable and set value for quality in case of Sulfuras', async () => {
+    let fixture = TestBed.createComponent(InputFormComponent);
+    fixture.componentInstance.ngOnInit();
+    updateFormControlValue('name', 'Sulfuras, Hand of Ragnaros', fixture);
+    await fixture.whenStable()
+    let inputElement = fixture.debugElement.query(By.css(`input#quality`)).nativeElement;
+    expect(inputElement.disabled).toBeTruthy();
+    expect(inputElement.value).toBe('80');
+  })
+
+  it('should reenable value for name and throw error for quality', async () => {
+    let fixture = TestBed.createComponent(InputFormComponent);
+    fixture.componentInstance.ngOnInit();
+    updateFormControlValue('name', 'Sulfuras, Hand of Ragnaros', fixture);
+    await fixture.whenStable();
+    updateFormControlValue('name', 'Aged Brie', fixture);
+    await fixture.whenStable();
+    let inputElement = fixture.debugElement.query(By.css(`input#quality`)).nativeElement;
+    inputElement.dispatchEvent(new Event('focus'));
+    inputElement.dispatchEvent(new Event('blur'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+    let errorMessageElement = fixture.debugElement.query(By.css('mat-error')).nativeElement;
+    expect(inputElement.disabled).toBeFalsy();
+    expect(inputElement.value).toBe('80');
+    expect(errorMessageElement.innerHTML).toContain('Quality cannot be more than 50');
+  })
+
   it('should validate sell-in not empty', () => {
     validateFormFieldError('sellIn', null, 'required', 'Sell In is required');
     validateButtonPress(fixture, false, store, { name: '', quality: 0, sellIn: 0, id: 0 })
@@ -62,10 +90,10 @@ describe('InputFormComponent', () => {
 
   it('should call addItem if valid', () => {
     let fixture = TestBed.createComponent(InputFormComponent);
-    let form: FormGroup = fixture.componentInstance.inputForm;
     let validItem = { name: 'Test1', quality: 10, sellIn: 5 };
-    form.patchValue(validItem);
-    form.updateValueAndValidity();
+    updateFormControlValue('name', validItem.name, fixture);
+    updateFormControlValue('quality', validItem.quality, fixture);
+    updateFormControlValue('sellIn', validItem.sellIn, fixture);
     fixture.detectChanges();
     validateButtonPress(fixture, true, store, validItem);
   })
@@ -87,16 +115,11 @@ describe('InputFormComponent', () => {
 
 });
 
-function validateFormFieldError(formControlName: string, value: number | null, error: string, errorMessage: string):
+function validateFormFieldError(formControlName: string, value: number | string | null, error: string, errorMessage: string):
   ComponentFixture<InputFormComponent> {
   let fixture = TestBed.createComponent(InputFormComponent);
-  let form: FormGroup = fixture.componentInstance.inputForm;
-  let formControl: AbstractControl = form.controls[formControlName];
-  updateFormControlValue(formControl, value);
-  fixture.detectChanges();
+  updateFormControlValue(formControlName, value, fixture);
   let errorMessageElement = fixture.debugElement.query(By.css('mat-error')).nativeElement;
-  expect(formControl).toBeTruthy();
-  expect(formControl.hasError(error));
   expect(errorMessageElement.innerHTML).toContain(errorMessage);
   return fixture;
 }
@@ -114,8 +137,13 @@ function validateButtonPress(fixture: ComponentFixture<InputFormComponent>, vali
   }
 }
 
-function updateFormControlValue(formControl: AbstractControl, value: any) {
-  formControl.setValue(value);
-  formControl.markAsTouched();
-  formControl.updateValueAndValidity();
+function updateFormControlValue(formControl: string, value: number | string | null,
+  fixture: ComponentFixture<InputFormComponent>) {
+  fixture.detectChanges();
+  let inputElement = fixture.debugElement.query(By.css(`input#${formControl}`)).nativeElement;
+  inputElement.dispatchEvent(new Event('focus'));
+  inputElement.value = value;
+  inputElement.dispatchEvent(new Event('input'));
+  inputElement.dispatchEvent(new Event('blur'));
+  fixture.detectChanges();
 }
