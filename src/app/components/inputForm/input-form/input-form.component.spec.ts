@@ -99,18 +99,24 @@ describe('InputFormComponent', () => {
   })
 
 
-  it('should reset form after adding item', () => {
+  it('should reset form after adding item', async () => {
     let fixture = TestBed.createComponent(InputFormComponent);
-    let form: FormGroup = fixture.componentInstance.inputForm;
     let validItem = { name: 'Test1', quality: 10, sellIn: 5 };
-    form.patchValue(validItem);
-    form.updateValueAndValidity();
+    updateFormControlValue('name', validItem.name, fixture);
+    updateFormControlValue('quality', validItem.quality, fixture);
+    updateFormControlValue('sellIn', validItem.sellIn, fixture);
     fixture.detectChanges();
     validateButtonPress(fixture, true, store, validItem);
     fixture.detectChanges();
-    expect(form.value.name).toBeNull();
-    expect(form.value.quality).toBeNull();
-    expect(form.value.sellIn).toBeNull();
+    await fixture.whenStable();
+    let inputElement = fixture.debugElement.query(By.css(`input#name`)).nativeElement;
+    expect(inputElement.value).toBe('');
+    inputElement = fixture.debugElement.query(By.css(`input#quality`)).nativeElement;
+    expect(inputElement.value).toBe('');
+    inputElement = fixture.debugElement.query(By.css(`input#sellIn`)).nativeElement;
+    expect(inputElement.value).toBe('');
+    let errorMessageElement = fixture.debugElement.query(By.css('mat-error'));
+    expect(errorMessageElement).toBeNull();
   })
 
 });
