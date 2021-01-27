@@ -1,6 +1,6 @@
 export type ItemDTO = {
-    name: string;
-    quality: number;
-    sellIn: number;
-    id: number;
+    name: string
+    quality: number
+    sellIn: number
+    id: number
 }

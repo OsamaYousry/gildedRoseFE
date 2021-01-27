@@ -1,9 +1,21 @@
 <div class="container mat-elevation-z8">
-  <mat-progress-bar *ngIf="$loading | async" mode="indeterminate"></mat-progress-bar>
-  <mat-card>
-    <mat-card-title class="text-center">Gilded Rose Inventory</mat-card-title>
-    <app-input-form></app-input-form>
-    <app-table></app-table>
-    <button class="end-button" mat-raised-button color="accent" (click)="updateItems()">Update</button>
-  </mat-card>
+    <mat-progress-bar
+        *ngIf="$loading | async"
+        mode="indeterminate"
+    ></mat-progress-bar>
+    <mat-card>
+        <mat-card-title class="text-center"
+            >Gilded Rose Inventory</mat-card-title
+        >
+        <app-input-form></app-input-form>
+        <app-table></app-table>
+        <button
+            class="end-button"
+            mat-raised-button
+            color="accent"
+            (click)="updateItems()"
+        >
+            Update
+        </button>
+    </mat-card>
 </div>

@@ -1,27 +1,57 @@
 <form [formGroup]="inputForm" (ngSubmit)="addItem()">
     <mat-form-field class="input-field name-field" appearance="outline">
         <mat-label>Name</mat-label>
-        <input id="name" matInput placeholder="Name" formControlName="name" [matAutocomplete]="auto">
+        <input
+            id="name"
+            matInput
+            placeholder="Name"
+            formControlName="name"
+            [matAutocomplete]="auto"
+        />
         <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let option of defaultNames" [value]="option">
-                {{option}}
+                {{ option }}
             </mat-option>
         </mat-autocomplete>
-        <mat-error *ngIf="inputForm.get('name')?.invalid">Name is required</mat-error>
+        <mat-error *ngIf="inputForm.get('name')?.invalid"
+            >Name is required</mat-error
+        >
     </mat-form-field>
 
     <mat-form-field class="input-field" appearance="outline">
         <mat-label>Quality</mat-label>
-        <input id="quality" matInput placeholder="Quality" type="number" formControlName="quality">
-        <mat-error *ngIf="inputForm.get('quality')?.invalid">{{ getErrorMessage() }}</mat-error>
+        <input
+            id="quality"
+            matInput
+            placeholder="Quality"
+            type="number"
+            formControlName="quality"
+        />
+        <mat-error *ngIf="inputForm.get('quality')?.invalid">{{
+            getErrorMessage()
+        }}</mat-error>
     </mat-form-field>
 
     <mat-form-field class="input-field" appearance="outline">
         <mat-label>Sell In</mat-label>
-        <input id="sellIn" matInput placeholder="Sell In" type="number" formControlName="sellIn">
-        <mat-error *ngIf="inputForm.get('sellIn')?.invalid">Sell In is required</mat-error>
+        <input
+            id="sellIn"
+            matInput
+            placeholder="Sell In"
+            type="number"
+            formControlName="sellIn"
+        />
+        <mat-error *ngIf="inputForm.get('sellIn')?.invalid"
+            >Sell In is required</mat-error
+        >
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="isLoading">Add
+    <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="isLoading"
+    >
+        Add
     </button>
 </form>

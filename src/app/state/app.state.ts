@@ -1,5 +1,5 @@
-import { ItemDTO } from "../dtos/ItemDTO";
+import { ItemDTO } from '../dtos/ItemDTO'
 
 export interface AppState {
-    items: { loading: boolean, entity: ReadonlyArray<ItemDTO> };
+    items: { loading: boolean; entity: ReadonlyArray<ItemDTO> }
 }
