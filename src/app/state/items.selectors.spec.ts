@@ -1,6 +1,5 @@
-import { select } from '@ngrx/store'
 import { AppState } from './app.state'
-import { selectItems } from './items.selectors'
+import { selectItems, selectLoading } from './items.selectors'
 
 describe('Selectors', () => {
     const initialState: AppState = {
@@ -11,6 +10,11 @@ describe('Selectors', () => {
     }
     it('should select all items', () => {
         const result = selectItems(initialState)
-        expect(result)
+        expect(result.length).toBe(initialState.items.entity.length);
+    })
+
+    it('should select loading state', () => {
+        const result = selectLoading(initialState)
+        expect(result).toBe(initialState.items.loading);
     })
 })
